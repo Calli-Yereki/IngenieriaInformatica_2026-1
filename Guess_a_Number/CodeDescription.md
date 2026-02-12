@@ -1,6 +1,6 @@
-# Documentación del Ejercicio: Adivina el Número Aleatorio
+# Documentación del Ejercicio: Guess a Number
 
-Este documento detalla el análisis, diseño e implementación de un juego de consola en Java donde el usuario debe adivinar un número generado aleatoriamente.
+Este documento detalla el análisis, diseño e implementación de un juego en Java donde el usuario debe adivinar un número generado aleatoriamente.
 
 ## 1. Enunciado del Ejercicio
 
@@ -42,27 +42,39 @@ Para resolver este problema, se requiere un flujo repetitivo (bucle) ya que no s
 3.  **Ciclo:** Se utilizará un bucle `while` que se mantendrá activo mientras el número ingresado sea **diferente** (`!=`) al número secreto.
 4.  **Actualización:** Dentro del bucle, es crítico volver a solicitar el `numIn` después de dar la pista, de lo contrario, se crearía un bucle infinito.
 
-## 5. Diseño del Algoritmo (Pseudocódigo)
+## 5. Diseño del Algoritmo (Codigo)
 
 ```text
-INICIO
-    Declarar numRnd como double = Math.random()
-    Declarar intRnd como int = (int)(numRnd * 100)
-    Declarar numIn como int
-    Instanciar Scanner input
+package Principal;
 
-    IMPRIMIR "Guess a Number between 0 and 100: "
-    LEER numIn
+import java.util.Scanner;
 
-    MIENTRAS (intRnd != numIn) HACER
-        SI (intRnd <= numIn) ENTONCES
-            IMPRIMIR "Too high, try again"
-        SINO
-            IMPRIMIR "Too low, try again"
-        FIN SI
-        
-        LEER numIn // Actualizar valor para la siguiente iteración
-    FIN MIENTRAS
+public class Main {
+	public static void main(String[] args) {
+		double numRnd = Math.random();
+		
+		int intRnd = (int)(numRnd*100);
+		int numIn;
+		
+		Scanner input = new Scanner(System.in);
+		
+		System.out.println("Guess a Number between 0 and 100: ");
+		
+		numIn = input.nextInt();
+		
+		while (intRnd != numIn) {
+			if(intRnd <= numIn) {
+				System.out.println("Too high, try again");
+				numIn = input.nextInt();
+			}
+			else {
+				System.out.println("Too low, try again");
+				numIn = input.nextInt();
+			}
+		}
+		
+		System.out.println("You win!");
+		
+	}
 
-    IMPRIMIR "You win!"
-FIN
+}
